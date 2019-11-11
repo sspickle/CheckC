@@ -1,4 +1,3 @@
-#FROM gcc:8.3
 FROM debian:9.11
 
 RUN apt-get update
@@ -13,9 +12,11 @@ RUN apt-get install -y clang-format
 
 RUN apt-get install -y highlight
 
-RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
-RUN tar xvJf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz 
-RUN cp wkhtmltox/bin/wkhtmlto* /usr/bin/
+RUN apt-get install -y wget
+
+RUN wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb && \
+    dpkg -i ./wkhtmltox_0.12.5-1.stretch_amd64.deb || true && \
+    apt-get -f install -y && rm ./wkhtmltox_0.12.5-1.stretch_amd64.deb
 
 COPY . /work
 

@@ -7,7 +7,7 @@ import re
 
 if len(sys.argv) == 1:
     print("""
-    Invoke thusly: find . -name "*.c" -print0 | xargs -0 -n 1 python auto_build.py
+    Invoke thusly: find . -name "*.c" -print0 | xargs -0 -n 1 python3 auto_build.py
     """)
 
 cwd = os.getcwd()
@@ -19,20 +19,29 @@ USE_DOCKER_FOR_WKHTML = True
 buildTemplate = 'docker run --rm -i -v "$PWD":/work --log-driver=none -a stdin -a stdout -a stderr checkc gcc -Wall "%s" >> ./output/checks.txt 2>&1'
 execTemplate = 'echo %s | docker run --rm -i -v "$PWD":/work --log-driver=none -a stdin -a stdout -a stderr checkc timeout 2 ./a.out | head -c 5000 >> ./output/checks.txt 2>&1'
 highlightTemplate = 'docker run --rm -i -v "$PWD":/work --log-driver=none -a stdin -a stdout -a stderr checkc highlight "%s" -l -d ./output -V'
-wkhtmlTemplate = 'docker run --rm -i -v "$PWD":/work -log-driver=none -a stdin -a stdout -a stderr checkc wkhtmltopdf ./output/*.c.html ./output/checks.html %s.pdf'
+wkhtmlTemplate = 'docker run --rm -i -v "$PWD":/work -v /work/fonts -log-driver=none -a stdin -a stdout -a stderr checkc wkhtmltopdf ./output/*.c.html ./output/checks.html %s.pdf'
 
-prefix = """
+oldprefix = """
 <html>
 <head>
 <style>
 @font-face {
     font-family: mono;
-    src: url('file:///work/DroidSansMono.ttf');
-} 
+    src: url('file:///work/fonts/DroidSansMono.ttf');
+}
 </style>
 </head>
 <body>
 <pre style="font-family: mono;">
+"""
+
+
+prefix = """
+<html>
+<head>
+</head>
+<body>
+<pre style="font-family: monospace;">
 """
 postfix = """
 </pre>
