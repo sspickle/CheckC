@@ -21,7 +21,7 @@ execTemplate = 'echo %s | docker run --rm -i -v "$PWD":/work --log-driver=none -
 highlightTemplate = 'docker run --rm -i -v "$PWD":/work --log-driver=none -a stdin -a stdout -a stderr checkc highlight "%s" -l -d ./output -V'
 wkhtmlTemplate = 'docker run --rm -i -v "$PWD":/work -v /work/fonts -log-driver=none -a stdin -a stdout -a stderr checkc wkhtmltopdf ./output/*.c.html ./output/checks.html %s.pdf'
 
-oldprefix = """
+prefix = """
 <html>
 <head>
 <style>
@@ -35,14 +35,6 @@ oldprefix = """
 <pre style="font-family: mono;">
 """
 
-
-prefix = """
-<html>
-<head>
-</head>
-<body>
-<pre style="font-family: monospace;">
-"""
 postfix = """
 </pre>
 </body>
