@@ -8,6 +8,7 @@ import re
 if len(sys.argv) == 1:
     print("""
     Invoke thusly: find . -name "*.c" -print0 | xargs -0 -n 1 python3 auto_build.py
+    or:  python3 auto_build.py ./Name(username)/Submissions/foo.c
     """)
 
 cwd = os.getcwd()
