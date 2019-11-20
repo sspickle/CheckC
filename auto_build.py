@@ -16,7 +16,7 @@ cfname = 'shapes2.c'
 
 USE_DOCKER_FOR_WKHTML = True
 
-buildTemplate = 'docker run --rm -i -v "$PWD":/work --log-driver=none -a stdin -a stdout -a stderr checkc gcc -Wall "%s" >> ./output/checks.txt 2>&1'
+buildTemplate = 'docker run --rm -i -v "$PWD":/work --log-driver=none -a stdin -a stdout -a stderr checkc gcc -Wall -lm "%s" >> ./output/checks.txt 2>&1'
 execTemplate = 'echo %s | docker run --rm -i -v "$PWD":/work --log-driver=none -a stdin -a stdout -a stderr checkc timeout 2 ./a.out | head -c 5000 >> ./output/checks.txt 2>&1'
 highlightTemplate = 'docker run --rm -i -v "$PWD":/work --log-driver=none -a stdin -a stdout -a stderr checkc highlight "%s" -l -d ./output -V'
 wkhtmlTemplate = 'docker run --rm -i -v "$PWD":/work -v /work/fonts -log-driver=none -a stdin -a stdout -a stderr checkc wkhtmltopdf ./output/*.c.html ./output/checks.html %s.pdf'
@@ -46,12 +46,14 @@ print("Got argv:", sys.argv)
 for fpath in sys.argv[1:]:
     print("fpath = ", fpath)
     blocks = fpath.split('/')
+    print("Found blocks:", blocks)
     fname = blocks[-1]
-
+    print("Searching for username in ", blocks[1])
     userRE = re.compile("\((.+)\)")
     m = userRE.search(blocks[1])
     username = m.group(1)
-    
+    print("found username:", username)
+
     codeDir = '/'.join(blocks[:-1])
     
     os.chdir(os.path.join(cwd, codeDir))
