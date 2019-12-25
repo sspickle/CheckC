@@ -25,3 +25,4 @@ expanded into a folder that contains one sub-folder for each student:
 
 The program `auto_build.py` traverses this directory structure, builds executables, executes them and stores the output in a way that can be converted into a PDF for hand grading. There is always some customization required based on the inputs/outputs but this is a reasonable starting point.
 
+You can find some example auto_build.py files in [examples](examples)
