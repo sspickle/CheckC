@@ -14,9 +14,9 @@ RUN apt-get install -y highlight
 
 RUN apt-get install -y wget
 
-RUN wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb && \
-    dpkg -i ./wkhtmltox_0.12.5-1.stretch_amd64.deb || true && \
-    apt-get -f install -y && rm ./wkhtmltox_0.12.5-1.stretch_amd64.deb
+RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.stretch_amd64.deb && \
+    dpkg -i ./wkhtmltox_0.12.6-1.stretch_amd64.deb || true && \
+    apt-get -f install -y && rm ./wkhtmltox_0.12.6-1.stretch_amd64.deb
 
 COPY . /work
 
