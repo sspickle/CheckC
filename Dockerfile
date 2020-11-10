@@ -18,6 +18,10 @@ RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkh
     dpkg -i ./wkhtmltox_0.12.6-1.stretch_amd64.deb || true && \
     apt-get -f install -y && rm ./wkhtmltox_0.12.6-1.stretch_amd64.deb
 
+RUN apt-get install -y pandoc
+
+RUN apt-get install -y ttf-ancient-fonts
+
 COPY . /work
 
 WORKDIR /work
